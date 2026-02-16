@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 4 Leaks Costing You The Most | LevReg AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --accent-green: #00ff88;
+            --accent-gold: #ffd60a;
+            --accent-gold-hover: #ffe44d;
+            --accent-pink: #ff6bdb;
+            --border-color: #222222;
+            --border-hover: #ffd60a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Animations */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scroll-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .animate-in {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 214, 10, 0.3);
+        }
+
+        .cta-button svg {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 4px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-intro {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-intro strong {
+            color: var(--accent-gold);
+        }
+
+        /* Leaks Section */
+        .leaks-section {
+            padding: 4rem 2rem 6rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .leak-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .leak-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateX(4px);
+        }
+
+        .leak-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 4px;
+        }
+
+        .leak-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        .leak-subsection {
+            margin-bottom: 2rem;
+        }
+
+        .leak-subsection h4 {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .leak-subsection p {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .leak-subsection ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .leak-subsection li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .leak-subsection li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.1rem;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+        }
+
+        .highlight-box {
+            background: rgba(255, 214, 10, 0.1);
+            border-left: 3px solid var(--accent-gold);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box p {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* Full Picture Section */
+        .full-picture {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .full-picture-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .full-picture h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .full-picture-intro {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .flow-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+
+        .flow-step {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .flow-step:last-child {
+            border-bottom: none;
+        }
+
+        .flow-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .flow-content p {
+            color: var(--text-primary);
+        }
+
+        .flow-content strong {
+            color: var(--accent-gold);
+        }
+
+        .flow-result {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--bg-primary);
+        }
+
+        .cta-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(255, 214, 10, 0.05) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--accent-gold), transparent, var(--accent-green));
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .cta-container h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-container > p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-subtext {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Benefits Grid */
+        .benefits-section {
+            padding: 6rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .benefits-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .benefits-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .benefits-header h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .benefit-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-4px);
+        }
+
+        .benefit-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--accent-gold);
+        }
+
+        .benefit-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Who Section */
+        .who-section {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .who-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .who-header h2 {
+            font-size: 2rem;
+        }
+
+        .who-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .who-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .who-card.good {
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .who-card.bad {
+            border-color: rgba(255, 107, 219, 0.3);
+        }
+
+        .who-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .who-card.good h3 {
+            color: var(--accent-green);
+        }
+
+        .who-card.bad h3 {
+            color: var(--accent-pink);
+        }
+
+        .who-card ul {
+            list-style: none;
+        }
+
+        .who-card li {
+            padding: 0.75rem 0;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .who-card li span {
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-header h2 {
+            font-size: 2rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Bottom CTA */
+        .bottom-cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .bottom-cta-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(255, 214, 10, 0.05) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bottom-cta-container::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--accent-gold), transparent, var(--accent-green));
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .bottom-cta h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .bottom-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .footer-brand span {
+            color: var(--accent-gold);
+        }
+
+        .footer-disclaimer {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .who-grid,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .leak-card {
+                padding: 2rem;
+            }
+
+            .bottom-cta-container,
+            .cta-container {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .bottom-cta h2,
+            .cta-container h2 {
+                font-size: 1.75rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Lev<span>Reg</span>.AI</a>
+            <ul class="nav-links">
+                <li><a href="#leaks">The 4 Leaks</a></li>
+                <li><a href="#who">Who It's For</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="https://www.levreg.ai/book-call" class="cta-button" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Book AI Audit</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-label mono">YOUR FREE REPORT</span>
+        <h1>These 4 Leaks Are Costing You The Most&mdash;Here's How To Fix Them</h1>
+        <p class="hero-intro">You're already getting leads. This guide shows you how to actually convert them. <strong>Identify which one is your biggest leak, plug it, and watch your consultation bookings climb</strong>&mdash;without spending more on ads.</p>
+    </section>
+
+    <!-- Leaks Section -->
+    <section id="leaks" class="leaks-section">
+        <!-- Leak 1 -->
+        <div class="leak-card">
+            <span class="leak-number">LEAK #1</span>
+            <h3>You're Missing Calls</h3>
+
+            <div class="leak-subsection">
+                <h4>The Symptom</h4>
+                <p>Your phone rings. Your injector is mid-treatment with a client. Your front desk is checking someone out. It's 7 PM and the office is closed. Someone wanting to book Botox before their wedding goes straight to voicemail.</p>
+            </div>
+
+            <div class="highlight-box">
+                <p>35% of your inbound calls never get answered.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Cost</h4>
+                <p>If you're getting 80 inbound calls/month and missing 28, that's 18-22 lost consultations. At $800 average treatment value&mdash;but more importantly, at $5,000-$8,000 lifetime client value? You're bleeding <strong>$90K-$176K/year</strong> in lost client relationships.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Question</h4>
+                <p>How many voicemails are sitting in your system right now asking about filler, Botox, or laser treatments that never got called back?</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Fix: Inbound AI Agent</h4>
+                <ul>
+                    <li>Answers every call, 24/7 (even at 2 AM when someone's thinking about that consultation)</li>
+                    <li>Qualifies the lead using your criteria ("Have you had filler before? What's your budget? When are you hoping to come in?")</li>
+                    <li>Books consultations directly into your calendar</li>
+                    <li>Sends you a summary of every conversation (treatment interest, skin concerns, timeline)</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <p>The Result: Zero missed calls. Every lead gets handled. Your team only shows up for qualified consultations. No more lost clients because you were unavailable.</p>
+            </div>
+        </div>
+
+        <!-- Leak 2 -->
+        <div class="leak-card">
+            <span class="leak-number">LEAK #2</span>
+            <h3>You're Too Slow</h3>
+
+            <div class="leak-subsection">
+                <h4>The Symptom</h4>
+                <p>Someone fills out your contact form asking "How much does lip filler cost?" You respond the next morning. They already booked a consultation at the medspa down the street that texted them back in 2 minutes.</p>
+            </div>
+
+            <div class="highlight-box">
+                <p>Respond in 5 minutes, you're 21X more likely to convert the lead than if you wait 30 minutes. Wait 12 hours? You've already lost them.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Cost</h4>
+                <p>If you're getting 40 web/Instagram leads/month and your average response time is 6+ hours, you're losing 25-30 of them to faster competitors.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Question</h4>
+                <p>What's your average response time from web inquiry to first contact right now? Be honest.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Fix: Instant Response / Speed-to-Lead System</h4>
+                <ul>
+                    <li>The second a lead comes in (form submission, Instagram DM inquiry, Google review question), AI texts or calls them within 30 seconds</li>
+                    <li>Not 30 minutes. <strong>30 seconds.</strong></li>
+                    <li>Confirms interest while they're researching: "Saw you asking about Botox&mdash;we have openings Thursday and Friday. Want me to book you in?"</li>
+                    <li>Books the consultation before they close the browser tab or put their phone down</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <p>The Result: You win on speed. Most treatment decisions don't go to the best medspa&mdash;they go to whoever responds first when someone's actually motivated to book.</p>
+            </div>
+        </div>
+
+        <!-- Leak 3 -->
+        <div class="leak-card">
+            <span class="leak-number">LEAK #3</span>
+            <h3>Your CRM Is A Graveyard</h3>
+
+            <div class="leak-subsection">
+                <h4>The Symptom</h4>
+                <p>You've got 8,000 leads in your CRM. Maybe more. They came in over the past 2 years from Google ads, Instagram, website inquiries, past consultations. They went cold. You moved on. They're just sitting there.</p>
+                <p style="margin-top: 1rem;">Maybe it's someone who asked about CoolSculpting but never booked. Maybe it's a client who came in 18 months ago for filler and never returned. Maybe it's someone who scheduled a consultation and no-showed.</p>
+            </div>
+
+            <div class="highlight-box">
+                <p>You already paid for those leads&mdash;or already converted them once. Let's say you spent $40/lead acquiring them. That's $320,000 in ad spend (or relationship capital) doing absolutely nothing.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Cost</h4>
+                <p>If even 3% of those leads could be reactivated for a consultation, that's <strong>240 appointments</strong> you don't have to buy through ads.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Question</h4>
+                <p>How many "dead" leads&mdash;people who inquired but didn't book, or clients who haven't been back in 6+ months&mdash;are in your CRM right now that you've written off?</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Fix: Lead Reactivation Agent</h4>
+                <ul>
+                    <li>Voice AI + SMS reaches out to old leads with a warm, natural message</li>
+                    <li>"Hey Sarah, we chatted a few months ago about your lip filler goals. Still thinking about it? We just got new dermal filler options and have some openings this week."</li>
+                    <li>Re-qualifies interested leads automatically ("What's your timeline looking like? Any concerns from last time?")</li>
+                    <li>Books them back into your calendar or passes them to your team</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <p>The Result: Pure found revenue. You're not buying new leads&mdash;you're extracting value from leads you already paid for and relationships you already built.</p>
+            </div>
+        </div>
+
+        <!-- Leak 4 -->
+        <div class="leak-card">
+            <span class="leak-number">LEAK #4</span>
+            <h3>Your Website Just Sits There</h3>
+
+            <div class="leak-subsection">
+                <h4>The Symptom</h4>
+                <p>Your website gets 3,000 visitors/month. They land. They browse your before/afters. They read about your Botox packages. They leave. 2% convert and schedule a consultation. The other 98% vanish into the void.</p>
+            </div>
+
+            <div class="highlight-box">
+                <p>If 3,000 visitors come to your site and only 60 (2%) schedule consultations, you're losing 2,940 opportunities. Bump that to even 5% and you've got 150 consultations instead of 60&mdash;from the same traffic and same ad spend.</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Question</h4>
+                <p>What's your website doing at 11 PM on a Friday when women are researching "best Botox near me" or scrolling your before/after gallery?</p>
+            </div>
+
+            <div class="leak-subsection">
+                <h4>The Fix: Website Chatbot (That Actually Converts)</h4>
+                <ul>
+                    <li>Greets visitors in real-time: "Hi! Interested in Botox, filler, laser, or something else?"</li>
+                    <li>Asks qualifying questions ("Is this your first time getting filler? What's your biggest skin concern? When were you hoping to come in?")</li>
+                    <li>Educates them: "Most clients see results in 3-5 days with Botox. Here's what to expect at your consultation&hellip;"</li>
+                    <li>Books consultations directly from the chat</li>
+                    <li>Captures contact info + treatment interest even if they don't book immediately</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <p>The Result: Your website becomes a 24/7 consultation scheduler instead of a digital brochure. You're converting the traffic you already paid for.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Picture Section -->
+    <section class="full-picture">
+        <div class="full-picture-container">
+            <h2>When All 4 Systems Work Together</h2>
+            <p class="full-picture-intro">Here's what happens when you plug all 4 leaks:</p>
+
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <span class="flow-number">1</span>
+                    <div class="flow-content">
+                        <p>Client clicks your Instagram ad at 9 PM &rarr; lands on your filler page</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-number">2</span>
+                    <div class="flow-content">
+                        <p><strong>Website chatbot</strong> engages: "Thinking about starting filler? Here's what to expect at your first consultation&hellip;"</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-number">3</span>
+                    <div class="flow-content">
+                        <p>Client enters her info and clicks "Book a Consultation"</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-number">4</span>
+                    <div class="flow-content">
+                        <p><strong>Speed-to-Lead system</strong> texts her within 30 seconds: "Got your request! We have Friday at 2 PM or Saturday at 10 AM available. Which works?"</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-number">5</span>
+                    <div class="flow-content">
+                        <p>If she doesn't respond that night, <strong>Inbound agent</strong> handles her callback the next day when she calls the number on your site</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-number">6</span>
+                    <div class="flow-content">
+                        <p>If she ghosts, <strong>Reactivation agent</strong> follows up 3 days later via SMS: "Hey Sarah, still interested in exploring filler? We're running a special this month&hellip;"</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="flow-result">Every gap covered. Every lead handled. Zero manual work until the consultation itself.</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Transform Your Business in the Next 30 Days!</h2>
+            <p>Schedule a free 30-minute AI Transformation Call and get a personalized roadmap for automating your marketing and operations&mdash;designed by a 17-year business operator, not a Silicon Valley guru.</p>
+            <a href="https://www.levreg.ai/book-call" class="cta-button">
+                Book Your Free AI Audit
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="benefits-container">
+            <div class="benefits-header">
+                <h2>In 30 Minutes, You'll Walk Away With:</h2>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4>A Clear Picture of Your AI Opportunities</h4>
+                    <p>We'll analyze your current operations and identify the 3-5 highest-leverage areas where AI creates real value&mdash;not generic advice, but specific to your business model.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Your Personalized Implementation Roadmap</h4>
+                    <p>You'll get a prioritized sequence of what to automate first for the fastest ROI. No more wondering "where do I even start?"</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Realistic Time and Cost Expectations</h4>
+                    <p>We'll be honest about what AI can and can't solve for your specific situation, including rough timelines and investment ranges.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Answers to Your Questions</h4>
+                    <p>Bring your skepticism. Bring your concerns. We'll address them directly&mdash;no hype, no BS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Section -->
+    <section id="who" class="who-section">
+        <div class="who-header">
+            <h2>Who This Is For</h2>
+        </div>
+
+        <div class="who-grid">
+            <div class="who-card good">
+                <h3>You're a good fit if:</h3>
+                <ul>
+                    <li><span>&#10003;</span> You're getting consultation inquiries but losing them to slow follow-up or missed calls</li>
+                    <li><span>&#10003;</span> You have past clients or dead leads sitting in your CRM who haven't returned in months</li>
+                    <li><span>&#10003;</span> You want more bookings without hiring another front desk person</li>
+                    <li><span>&#10003;</span> You're willing to implement systems (not looking for a magic button&mdash;you understand this takes setup)</li>
+                </ul>
+            </div>
+            <div class="who-card bad">
+                <h3>You're NOT a good fit if:</h3>
+                <ul>
+                    <li><span>&#10007;</span> You have no inbound lead flow (fix your ad strategy first)</li>
+                    <li><span>&#10007;</span> Your consultation-to-treatment conversion doesn't work (fix your sales process first)</li>
+                    <li><span>&#10007;</span> You're not willing to invest time in setup and training your team on the systems</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="faq-header">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">"How do I know which leak to fix first?"</div>
+            <div class="faq-answer">That's what the audit is for. Download it. Answer 5 questions about your current lead flow. It'll show you which leak is bleeding the most revenue based on your specific numbers.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">"Do I have to deploy all 4 systems?"</div>
+            <div class="faq-answer">No. Fix the biggest leak first. Most medspas start with Speed-to-Lead (texting inquiries back in 30 seconds) or Inbound Agent (never miss a call again). Lead Reactivation is a no-brainer if you have 5,000+ names sitting dormant.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">"Will clients feel weird talking to AI about cosmetic treatments?"</div>
+            <div class="faq-answer">The AI isn't doing clinical consultations&mdash;those are still you and your injectors. The AI is handling initial inquiries and scheduling. Clients care about getting a fast, friendly response when they're motivated to book. Most don't even realize they spoke to AI until after they've booked and had a great experience with your team.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">"Can't I just hire more people to fix this?"</div>
+            <div class="faq-answer">You could hire another front desk person. But that costs $35K-$45K/year in salary, takes a month to train, and has 40% annual turnover. AI works 24/7, never calls in sick, and doesn't quit. Plus, your existing team gets freed up for actual client service instead of answering the same questions repeatedly.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">"How long does setup take?"</div>
+            <div class="faq-answer">1-2 weeks per system if you're doing it yourself, or 3-5 days if we help you deploy. The guide includes exact implementation timelines and what you'll need for each system (call forwarding setup, SMS integration, etc.).</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">"What if I don't have 5,000 dead leads?"</div>
+            <div class="faq-answer">Then system #3 (Lead Reactivation) is less urgent. Skip it for now and focus on systems #1, #2, and #4. The audit will show you exactly which systems apply to your business.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">"Will this work for a single-provider medspa?"</div>
+            <div class="faq-answer">Yes. Actually, single-provider medspas benefit most because a single missed call costs you a higher percentage of your capacity. These systems are perfect for clinics of 1-10 providers.</div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta">
+        <div class="bottom-cta-container">
+            <h2>Book Your Free AI Audit</h2>
+            <p>You're already paying for these leads. This audit shows you how to actually convert them. Find your biggest leak. Plug it. And watch your consultation bookings climb without spending more on ads.</p>
+            <a href="https://www.levreg.ai/book-call" class="cta-button">
+                Book Your Free AI Audit
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">Lev<span>Reg</span>.AI</div>
+            <div class="footer-disclaimer">Find out which of the 4 leaks is costing you the most and fix it.</div>
+            <div class="footer-links">
+                <a href="https://www.levreg.ai/book-call">Book a Call</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
