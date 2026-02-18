@@ -94,6 +94,45 @@
             padding: 0 1.5rem;
         }
 
+        /* Bounce Animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        .scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .scroll-indicator:hover {
+            opacity: 0.8;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-primary);
+        }
+
+        .scroll-indicator svg {
+            width: 32px;
+            height: 32px;
+            color: var(--accent-primary);
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -753,8 +792,14 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">Your Free Report</div>
-                <h1>These 4 Leaks Are Costing You The Most. <em>Here's How To Fix Them.</em></h1>
+                <h1>These 4 Leaks Are Costing You The Most Leads. <em>Here's How To Fix Them.</em></h1>
                 <p class="hero-intro">You're already getting leads. This guide shows you how to actually convert them. <strong>Identify which one is your biggest leak, plug it, and watch your consultation bookings climb</strong>—without spending more on ads.</p>
+                <button class="scroll-indicator" onclick="document.getElementById('leaks').scrollIntoView({ behavior: 'smooth', block: 'start' });" aria-label="Scroll to report">
+                    <span>Report Below</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
@@ -1093,9 +1138,9 @@
             </div>
             <div class="footer-tagline">Find out which of the 4 leaks is costing you the most and fix it.</div>
             <div class="footer-legal">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookie Policy</a>
+                <a href="https://www.levreg.ai/privacy-policy">Privacy Policy</a>
+                <a href="https://www.levreg.ai/terms-of-service">Terms of Service</a>
+                <a href="https://www.levreg.ai/cookie-policy">Cookie Policy</a>
             </div>
             <div class="footer-copyright">&copy; 2024 LevReg AI. All rights reserved.</div>
         </div>
